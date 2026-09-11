@@ -1,0 +1,530 @@
+<title>Marcos Feresin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg:#F6F1E6;
+    --surface:#FFFFFF;
+    --surface-2:#EDE6D3;
+    --ink:#221C13;
+    --muted:#726A56;
+    --line:#DCD2B7;
+    --accent:#93650F;
+    --accent-strong:#6E4C0B;
+    --accent-soft: rgba(147,101,15,.12);
+    --focus:#3B6FE0;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#131009;
+      --surface:#1C1810;
+      --surface-2:#261F14;
+      --ink:#F1E9D5;
+      --muted:#AB9F82;
+      --line:#3A311F;
+      --accent:#DDAC51;
+      --accent-strong:#F0C273;
+      --accent-soft: rgba(221,172,81,.14);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#131009;
+    --surface:#1C1810;
+    --surface-2:#261F14;
+    --ink:#F1E9D5;
+    --muted:#AB9F82;
+    --line:#3A311F;
+    --accent:#DDAC51;
+    --accent-strong:#F0C273;
+    --accent-soft: rgba(221,172,81,.14);
+  }
+
+  *{box-sizing:border-box;}
+  html{color-scheme:light dark;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Archivo', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent-soft); }
+  a{ color:var(--accent-strong); }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+  h1,h2,h3{
+    font-family:'Fraunces', ui-serif, Georgia, serif;
+    font-weight:600;
+    line-height:1.08;
+    margin:0;
+    text-wrap:balance;
+    color:var(--ink);
+  }
+  p{ margin:0; line-height:1.65; }
+  img{ max-width:100%; display:block; }
+
+  .page{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 20px 64px;
+  }
+
+  /* ---------- decorative bezel ticks ---------- */
+  .ticks{
+    height:9px;
+    margin:0 -20px;
+    background-image:repeating-linear-gradient(to right, var(--accent) 0 2px, transparent 2px 15px);
+    opacity:.55;
+  }
+  @media (min-width:960px){ .ticks{ margin:0; } }
+
+  /* ---------- hero / nameplate ---------- */
+  .hero{ padding-block:0 40px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 .6em;
+  }
+  .hero-top{ padding-block-start:28px; }
+  .hero h1{ font-size:clamp(2.4rem, 6vw, 3.6rem); }
+  .role{
+    margin-top:.5em;
+    font-size:1.05rem;
+    color:var(--muted);
+    max-width:38ch;
+  }
+
+  .plate{
+    margin-top:32px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    position:relative;
+    padding:6px 0;
+  }
+  .plate::before,.plate::after{
+    content:"";
+    position:absolute;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--line);
+    top:8px;
+  }
+  .plate::before{ left:8px; }
+  .plate::after{ right:8px; }
+  .plate-row{
+    display:grid;
+    grid-template-columns:minmax(150px,200px) 1fr;
+    gap:12px;
+    padding:9px 22px;
+    border-top:1px solid var(--line);
+  }
+  .plate-row:first-child{ border-top:none; }
+  .plate-row .k{
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:.72rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    align-self:center;
+  }
+  .plate-row .v{ font-size:.98rem; align-self:center; }
+  .v.mono-num{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric:tabular-nums; letter-spacing:.03em; }
+  @media (max-width:560px){
+    .plate-row{ grid-template-columns:1fr; gap:2px; padding:10px 16px; }
+  }
+
+  /* ---------- about ---------- */
+  .about{ padding-block:44px 8px; max-width:64ch; }
+  .about .lede{ font-size:1.14rem; }
+  .about .lede::first-letter{
+    font-family:'Fraunces', serif;
+    font-size:3.1em;
+    float:left;
+    line-height:.82;
+    padding:.03em .07em 0 0;
+    color:var(--accent-strong);
+  }
+  .about p + p{ margin-top:1.1em; }
+  .about .cue{ margin-top:1.4em; color:var(--muted); font-size:.95rem; }
+
+  /* ---------- product lines ---------- */
+  .line{ padding-block:52px; border-top:1px solid var(--line); }
+  .line-head{ max-width:60ch; }
+  .line-head h2{ font-size:clamp(1.5rem,3.4vw,2rem); margin-top:.3em; }
+  .line-head .lead{ margin-top:.9em; color:var(--muted); font-size:1rem; max-width:56ch; }
+
+  /* watch grid */
+  .watch-grid{
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(155px,1fr));
+    gap:22px 18px;
+  }
+  #print3d .watch-grid{ grid-template-columns:repeat(6,1fr); }
+  @media (max-width:900px){ #print3d .watch-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:520px){ #print3d .watch-grid{ grid-template-columns:1fr; } }
+  .watch-card{ display:flex; flex-direction:column; gap:10px; }
+  .watch-frame{
+    aspect-ratio:1;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--surface-2);
+    box-shadow:0 0 0 4px var(--bg), 0 0 0 5px var(--line);
+  }
+  .watch-frame img{ width:100%; height:100%; object-fit:cover; }
+  .watch-card h3{ font-size:1rem; font-weight:600; }
+  .watch-card p{ font-size:.87rem; color:var(--muted); }
+  .watch-card .fine{ font-size:.74rem; color:var(--muted); font-style:italic; }
+
+  .chips{ margin-top:26px; display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:.7rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:5px 9px;
+  }
+
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:.4em;
+    margin-top:26px;
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:.82rem;
+    letter-spacing:.03em;
+    text-decoration:none;
+    border-bottom:1px solid var(--accent);
+    padding-bottom:2px;
+  }
+  .cta:hover{ border-color:var(--accent-strong); }
+
+  /* split sections (boox / pizza) */
+  .split{ display:grid; grid-template-columns:220px 1fr; gap:36px; align-items:start; }
+  .split.reverse{ grid-template-columns:1fr 220px; }
+  .split.reverse .split-media{ order:2; }
+  @media (max-width:640px){
+    .split, .split.reverse{ grid-template-columns:1fr; }
+    .split.reverse .split-media{ order:0; }
+  }
+  .split-media{
+    aspect-ratio:1;
+    border:1px solid var(--line);
+    background:var(--surface-2);
+    box-shadow:0 0 0 4px var(--bg), 0 0 0 5px var(--line);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .split-media img{ width:100%; height:100%; object-fit:contain; }
+  #boox{ grid-template-columns:260px 1fr; }
+  #boox .split-media{ aspect-ratio:3/4; }
+  #boox .split-media img{ object-fit:cover; }
+  @media (max-width:640px){ #boox{ grid-template-columns:1fr; } }
+  .split-body h2{ font-size:clamp(1.5rem,3.4vw,2rem); margin-top:.3em; }
+  .line-title{ display:flex; align-items:center; gap:12px; }
+  .line-title h2{ margin-top:0; }
+  .title-icon{ width:40px; height:40px; border-radius:8px; box-shadow:0 0 0 1px var(--line); flex:none; }
+  .split-body p{ margin-top:1em; color:var(--ink); max-width:56ch; }
+  .spec{
+    margin-top:20px;
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:.78rem;
+    color:var(--muted);
+    display:flex; flex-wrap:wrap; gap:6px 22px;
+  }
+  .spec b{ color:var(--ink); font-weight:500; }
+
+  /* pizza gauge (css dial, no illustration) */
+  .gauge{
+    position:relative;
+    width:64%;
+    aspect-ratio:1;
+    border-radius:50%;
+    background:repeating-conic-gradient(var(--accent) 0deg 2.2deg, transparent 2.2deg 13deg);
+  }
+  .gauge::before{
+    content:"";
+    position:absolute; inset:13%;
+    border-radius:50%;
+    background:var(--surface);
+    border:1px solid var(--line);
+  }
+  .gauge-needle{
+    position:absolute; left:50%; top:50%;
+    width:2px; height:32%;
+    background:var(--accent-strong);
+    transform-origin:bottom center;
+    transform:translate(-50%,-100%) rotate(28deg);
+  }
+  .gauge-center{
+    position:absolute; left:50%; top:50%;
+    width:8px; height:8px; border-radius:50%;
+    background:var(--accent-strong);
+    transform:translate(-50%,-50%);
+  }
+  .gauge-label{
+    position:absolute; inset:13%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+  }
+  .gauge-label .pct{
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:1.6rem;
+    font-weight:500;
+  }
+  .gauge-label .tag{
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:.58rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:.2em;
+  }
+
+  footer{
+    padding-top:44px;
+  }
+  footer p{
+    margin-top:18px;
+    font-size:.85rem;
+    color:var(--muted);
+    display:flex; flex-wrap:wrap; gap:6px 18px;
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .watch-card:hover .watch-frame, .split-media:hover{ box-shadow:0 0 0 4px var(--bg), 0 0 0 5px var(--accent); }
+  }
+
+</style>
+
+<div class="page">
+
+  <header class="hero">
+    <div class="ticks hero-top" aria-hidden="true"></div>
+    <p class="eyebrow" style="margin-top:22px;">Ficha de desarrollador</p>
+    <h1>Marcos Feresin</h1>
+    <p class="role">Desarrollo de software, diseño/fabricación 3D y mecatrónica, de forma independiente<br>Reconquista, Santa Fe, Argentina</p>
+
+    <div class="plate">
+      <div class="plate-row"><span class="k">Nombre legal</span><span class="v">Marcos Daniel Feresin</span></div>
+      <div class="plate-row"><span class="k">Nombre comercial</span><span class="v">marcosfere</span></div>
+      <div class="plate-row"><span class="k">D-U-N-S</span><span class="v mono-num">35-222-3826</span></div>
+      <div class="plate-row"><span class="k">Condición</span><span class="v">Persona física · Monotributista (sole proprietor)</span></div>
+      <div class="plate-row"><span class="k">Formación</span><span class="v">Técnico electromecánico</span></div>
+      <div class="plate-row"><span class="k">Ubicación</span><span class="v">Reconquista, Santa Fe, Argentina</span></div>
+      <div class="plate-row"><span class="k">Contacto (software)</span><span class="v"><a href="mailto:marcosfere.apps@gmail.com">marcosfere.apps@gmail.com</a></span></div>
+      <div class="plate-row"><span class="k">Contacto (diseño 3D)</span><span class="v"><a href="mailto:marcosfere.3d@gmail.com">marcosfere.3d@gmail.com</a></span></div>
+    </div>
+    <div class="ticks" aria-hidden="true" style="margin-top:32px;"></div>
+  </header>
+
+  <section class="about">
+    <p class="lede">Soy técnico electromecánico, desarrollador de software, diseñador/fabricante de piezas impresas en 3D, y trabajo en mecatrónica — automatización con sensores, actuadores y microcontroladores. Cuatro campos que, en la práctica, resuelven el mismo tipo de problema con herramientas distintas.</p>
+    <p>El hilo conductor no es la plataforma: es resolver un problema concreto de la forma más eficiente posible. Automatizar una tarea repetitiva en vez de repetirla a mano cada vez. Reemplazar una pieza que ya no se consigue, en vez de descartar el objeto entero. Ordenar algo que ningún producto comercial resuelve del todo. Cuando lo que existe no alcanza, diseño y construyo la pieza, el programa o la herramienta puntual — y la fabrico o la publico yo mismo.</p>
+    <p class="cue">Seis líneas de trabajo, la mayoría ya publicadas y en uso; la más nueva todavía en desarrollo — a continuación.</p>
+  </section>
+
+  <section class="line" id="watchfaces">
+    <div class="line-head">
+      <p class="eyebrow">Línea 01 — Wear OS</p>
+      <h2>Una muestra de esferas para Wear OS</h2>
+      <p class="lead">Publicadas en Google Play bajo el sello marcosfere. Construidas directamente en Watch Face Format (WFF) de Android — XML plano, sin motor ni editor de terceros — con paletas, numerales, agujas y complicaciones que el usuario configura desde el propio reloj. El catálogo sigue creciendo; esto es una selección, no el total.</p>
+    </div>
+
+    <div class="watch-grid">
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/obsidian.png" alt="Obsidian Gold Roman"></div>
+        <h3>Obsidian Gold Roman</h3>
+        <p>Analógica clásica en oro y negro. Numerales romanos, cuatro paletas de dial y dos juegos de agujas intercambiables.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/greenhud.png" alt="Green HUD Digital"></div>
+        <h3>Green HUD Digital</h3>
+        <p>Digital estilo HUD táctico. 13 colores, 10 texturas y 10 estilos de dial combinables, con 3 complicaciones en vivo.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/pulsar.png" alt="Pulsar Hybrid"></div>
+        <h3>Pulsar Hybrid</h3>
+        <p>Híbrida analógica-digital con un panel LCD empotrado: retroiluminación, scanlines y hora digital sobre la propia esfera.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/spiderman.png" alt="SpiderMeme"></div>
+        <h3>SpiderMeme</h3>
+        <p>Analógica con arte propio a pantalla completa. Un homenaje desenfadado a un ícono pop.</p>
+        <p class="fine">Proyecto de fan, sin afiliación oficial con los titulares del personaje.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/vamos.png" alt="Vamos Argentina"></div>
+        <h3>Vamos Argentina</h3>
+        <p>El Sol de Mayo como esfera fija, pensada para el Mundial y las fechas patrias. Sin animaciones: solo identidad.</p>
+      </article>
+    </div>
+
+    <p style="margin-top:30px; color:var(--muted); font-size:.95rem; max-width:56ch;">Cada esfera se arma desde cero, pieza por pieza — y ese mismo proceso está disponible para diseñar una esfera a medida:</p>
+    <div class="chips">
+      <span class="chip">Agujas intercambiables</span>
+      <span class="chip">Tipografías propias</span>
+      <span class="chip">Movimiento tick / barrido</span>
+      <span class="chip">Complicaciones en vivo</span>
+      <span class="chip">Modo Always-On</span>
+    </div>
+
+    <a class="cta" href="https://play.google.com/store/search?q=marcosfere&c=apps" target="_blank" rel="noopener">Ver esferas en Google Play →</a>
+  </section>
+
+  <section class="line split" id="boox">
+    <div class="split-media"><img src="img/bookshelf.png" alt="Vista de grilla de Estantería"></div>
+    <div class="split-body">
+      <p class="eyebrow">Línea 02 — Lectura en e-ink</p>
+      <div class="line-title"><img class="title-icon" src="img/boox.png" alt=""><h2>Estantería</h2></div>
+      <p>Para tablets y teléfonos Android, y para lectores de tinta electrónica con Android — en blanco y negro o color, Onyx Boox incluido. La biblioteca nativa del dispositivo muestra portadas; esta app las organiza: colecciones y etiquetas propias, un mismo libro en más de una categoría, vista de grilla o de lomos, y respaldo automático. Al tocar un libro, delega la apertura al lector nativo del equipo — no reemplaza el motor de lectura, resuelve lo que a la biblioteca de fábrica le falta.</p>
+      <div class="spec">
+        <span><b>Plataforma</b> Android (tablets, teléfonos y e-readers B/N o color)</span>
+        <span><b>Rol</b> Organización, no lectura</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="line split reverse" id="pizza">
+    <div class="split-media">
+      <div class="gauge" aria-hidden="true">
+        <div class="gauge-needle"></div>
+        <div class="gauge-center"></div>
+        <div class="gauge-label"><span class="pct">68%</span><span class="tag">Hidratación</span></div>
+      </div>
+    </div>
+    <div class="split-body">
+      <p class="eyebrow">Línea 03 — Aplicaciones móviles</p>
+      <h2>Masa para Pizza</h2>
+      <p>Calculadora de masa por porcentaje panadero: se define el rendimiento deseado (número de pizzas, peso por bollo) y la app recalcula al instante cada ingrediente en gramos — harina, agua, sal, levadura — a partir de un único parámetro de hidratación. Las recetas se guardan, se editan y se comparten como texto o archivo, para no perder nunca una fórmula que ya funcionó.</p>
+      <p>Es una de varias aplicaciones para Android fuera del ecosistema Wear OS — también hay una generadora de autodefinidos y complementos para juegos de mesa, entre otras — que se van publicando de a una en Google Play.</p>
+      <div class="spec">
+        <span><b>Plataforma</b> Android</span>
+        <span><b>Motor</b> Porcentaje panadero sobre peso de harina</span>
+      </div>
+      <a class="cta" href="https://play.google.com/store/apps/developer?id=marcosfere" target="_blank" rel="noopener">Ver aplicaciones en Google Play →</a>
+    </div>
+  </section>
+
+  <section class="line" id="print3d">
+    <div class="line-head">
+      <p class="eyebrow">Línea 04 — Diseño 3D</p>
+      <h2>De la medida al archivo imprimible</h2>
+      <p class="lead">Repuestos que ya no se consiguen, herramientas que no existían, o simplemente el desafío de modelar una textura difícil. Diseños propios, hechos en CAD y publicados para imprimir en el perfil propio de Cults3D, que sigue sumando diseños — esto es una muestra, no el catálogo completo.</p>
+    </div>
+
+    <div class="watch-grid">
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/airvent.png" alt="Repuesto rejilla de aire GM"></div>
+        <h3>Rejilla de aire GM 52051488</h3>
+        <p>Repuesto de rejilla de ventilación orientable para Chevrolet Celta/Prisma y Suzuki Fun, modelada desde cero cuando la pieza original ya no se conseguía.</p>
+        <p class="fine">Diseño de fan, sin afiliación oficial con General Motors ni Suzuki.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/chevrolet.jpg" alt="Emblema Chevrolet S10 impreso"></div>
+        <h3>Emblema Chevrolet S10</h3>
+        <p>Logo de parrilla frontal, impreso para reemplazar uno roto sin esperar el repuesto original.</p>
+        <p class="fine">Diseño de fan, sin afiliación oficial con General Motors.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/slider.jpg" alt="Caja modular con tapa deslizante"></div>
+        <h3>Caja con tapa deslizante</h3>
+        <p>Contenedor modular de uso general: el mismo molde sirve para lo que haga falta guardar, con o sin separadores internos impresos.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/scoop.png" alt="Herramienta de motricidad fina tipo tijera"></div>
+        <h3>"Scoop Scissors"</h3>
+        <p>Réplica de una herramienta de estimulación de motricidad fina: pinza tipo tijera para practicar agarre y coordinación sin el riesgo de una tijera real. Pensada para niños y rehabilitación.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/dragon.jpg" alt="Estuche con textura de escamas de dragón"></div>
+        <h3>Estuche escamas de dragón</h3>
+        <p>Estuche cilíndrico con textura de escamas talladas en el propio diseño 3D y cierre hermético a rosca. El único de la lista que no resuelve un problema de uso diario: acá el objetivo es el desafío de modelado en sí.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/maqueta.jpg" alt="Maqueta arquitectónica"></div>
+        <h3>Maqueta arquitectónica</h3>
+        <p>Encargo de un cliente: modelado a partir de su plano y entregada ya armada y pegada, pared por pared, a escala.</p>
+      </article>
+    </div>
+
+    <a class="cta" href="https://cults3d.com/en/users/marcosfere/3d-models" target="_blank" rel="noopener">Ver el catálogo completo en Cults3D →</a>
+  </section>
+
+  <section class="line" id="manufactura3d">
+    <div class="line-head">
+      <p class="eyebrow">Línea 05 — Impresión y manufactura 3D</p>
+      <h2>Diseños de otros, terminados por mí</h2>
+      <p class="lead">Además de diseñar piezas propias, imprimo y termino diseños de terceros — la parte de fabricación del oficio, más allá del modelado: elegir el material y el color, resolver el ensamblado, y programar la electrónica cuando la pieza la lleva.</p>
+    </div>
+
+    <div class="watch-grid">
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/print_benchy.jpg" alt="Muestrario de colores sobre el modelo Benchy"></div>
+        <h3>Muestrario de colores</h3>
+        <p>El "Benchy", modelo de calibración estándar de la comunidad, impreso en decenas de filamentos distintos como muestrario real de color y acabado.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/print_dummy.jpg" alt="Figura articulada tipo dummy"></div>
+        <h3>Figura articulada</h3>
+        <p>El juguete "dummy" articulado que se puso de moda: piezas impresas por separado que se ensamblan a mano — la calidad está en que cada articulación quede firme y se mueva bien.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/print_lamp.jpg" alt="Cubo lámpara con iluminación LED"></div>
+        <h3>Cubo lámpara LED</h3>
+        <p>Diseño de un tercero, impreso y terminado por mí: armé el cableado y programé un Arduino con un sistema de control para tira de LEDs direccionables (pixel LEDs).</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/print_barrels.jpg" alt="Jarras portalatas térmicas con forma de barril"></div>
+        <h3>Portalatas térmicos</h3>
+        <p>Jarras portalatas térmicas para bebidas frías, con textura de madera y flejes metálicos.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/print_atlas.jpg" alt="Estatua decorativa de Atlas"></div>
+        <h3>Estatua de Atlas</h3>
+        <p>Adorno de Atlas sosteniendo el mundo sobre sus hombros.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/print_eggcups.jpg" alt="Posahuevos con forma de columna clásica"></div>
+        <h3>Posahuevos clásicos</h3>
+        <p>Para comer un huevo pasado por agua con cuchara desde la propia cáscara — una costumbre de desayuno típica de Europa (Reino Unido, Francia, Alemania), poco habitual en Argentina.</p>
+      </article>
+      <article class="watch-card">
+        <div class="watch-frame"><img src="img/print_capybaras.jpg" alt="Alcancías de capibara ensambladas en varios colores"></div>
+        <h3>Alcancías de capibara</h3>
+        <p>Otro diseño que se puso de moda en su momento: piezas de distintos colores de material, impresas por separado y ensambladas, sin pintura.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="line" id="mecatronica">
+    <div class="line-head">
+      <p class="eyebrow">Línea 06 — Mecatrónica</p>
+      <h2>Automatización con sensores y actuadores</h2>
+      <p class="lead">Electrónica aplicada al control: sensores y actuadores conectados a una placa controladora (Arduino y similares), programados para cumplir una función específica. Base de formación como técnico electromecánico — hay proyectos propios en desarrollo en esta línea, todavía sin fotos de resultado final para mostrar.</p>
+      <div class="chips">
+        <span class="chip">Sensores</span>
+        <span class="chip">Actuadores</span>
+        <span class="chip">Microcontroladores (Arduino)</span>
+        <span class="chip">Automatización</span>
+        <span class="chip">Electrónica aplicada</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="ticks" aria-hidden="true"></div>
+    <p>
+      <span>© 2026 Marcos Feresin — marcosfere</span>
+      <a href="mailto:marcosfere.apps@gmail.com">marcosfere.apps@gmail.com</a>
+      <a href="mailto:marcosfere.3d@gmail.com">marcosfere.3d@gmail.com</a>
+      <a href="privacy.html">Política de privacidad</a>
+    </p>
+  </footer>
+
+</div>
